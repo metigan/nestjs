@@ -1,0 +1,53 @@
+{
+  "name": "@metigan/nestjs",
+  "version": "1.0.0",
+  "description": "Official Metigan SDK for NestJS - Email, Forms, Contacts, and Audiences management",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "lint": "eslint src/**/*.ts",
+    "test": "jest"
+  },
+  "keywords": [
+    "metigan",
+    "nestjs",
+    "email",
+    "email-api",
+    "forms",
+    "contacts",
+    "audiences",
+    "sdk"
+  ],
+  "author": "Metigan <support@metigan.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "@nestjs/common": "^10.0.0",
+    "@nestjs/core": "^10.0.0",
+    "rxjs": "^7.8.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.2"
+  },
+  "devDependencies": {
+    "@nestjs/common": "^10.0.0",
+    "@nestjs/core": "^10.0.0",
+    "@nestjs/testing": "^10.0.0",
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.2",
+    "rxjs": "^7.8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/metigan/nestjs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/metigan/nestjs/issues"
+  },
+  "homepage": "https://metigan.com",
+  "publishConfig": {
+    "access": "public"
+  }
+}
+
