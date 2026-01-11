@@ -101,6 +101,8 @@ MetiganModule.forRootAsync({
   useFactory: (configService: ConfigService) => ({
     apiKey: configService.get<string>('METIGAN_API_KEY'),
     timeout: configService.get<number>('METIGAN_TIMEOUT', 30000),
+    retryCount: configService.get<number>('METIGAN_RETRY_COUNT', 3),
+    retryDelay: configService.get<number>('METIGAN_RETRY_DELAY', 2000),
   }),
   inject: [ConfigService],
 })
@@ -162,12 +164,14 @@ const result = await this.metigan.email.sendEmail({
 ### Email with Template
 
 ```typescript
+const variables = {
+  name: 'John Doe',
+  company: 'Acme Inc',
+};
+
 const result = await this.metigan.email.sendEmailWithTemplate(
   'template-123',
-  {
-    name: 'John Doe',
-    company: 'Acme Inc',
-  },
+  variables,
   {
     from: 'Sender <sender@example.com>',
     recipients: ['recipient@example.com'],
@@ -272,6 +276,12 @@ const audience = await this.metigan.audiences.create({
 });
 ```
 
+### Get Audience
+
+```typescript
+const audience = await this.metigan.audiences.get('audience-123');
+```
+
 ### List Audiences
 
 ```typescript
@@ -303,21 +313,30 @@ await this.metigan.audiences.delete('audience-123');
 
 ## 🎨 Managing Templates
 
-```typescript
-// Get template
-const template = await this.metigan.templates.get('template-123');
+### Get Template
 
-// List templates
+```typescript
+const template = await this.metigan.templates.get('template-123');
+```
+
+### List Templates
+
+```typescript
 const templates = await this.metigan.templates.list({
   page: 1,
   limit: 10,
+});
+
+templates.forEach((template) => {
+  console.log(`${template.name}: ${template.id}`);
 });
 ```
 
 ## 📝 Managing Forms
 
+### Submit Form
+
 ```typescript
-// Submit form
 const result = await this.metigan.forms.submit({
   formId: 'form-123',
   data: {
@@ -327,13 +346,25 @@ const result = await this.metigan.forms.submit({
   },
 });
 
-// Get form
-const form = await this.metigan.forms.get('form-123');
+console.log(result.message);
+```
 
-// List forms
-const forms = await this.metigan.forms.list({
+### Get Form
+
+```typescript
+const form = await this.metigan.forms.get('form-123');
+```
+
+### List Forms
+
+```typescript
+const result = await this.metigan.forms.list({
   page: 1,
   limit: 10,
+});
+
+result.forms.forEach((form) => {
+  console.log(`${form.name}: ${form.id}`);
 });
 ```
 
@@ -350,7 +381,9 @@ try {
   if (error instanceof ValidationError) {
     // Handle validation errors (422)
     console.error(`Validation Error: ${error.message}`);
-    console.error(`Field: ${error.field}`);
+    if (error.field) {
+      console.error(`Field: ${error.field}`);
+    }
   } else if (error instanceof ApiError) {
     // Handle API errors (4xx, 5xx)
     console.error(`API Error: ${error.statusCode} - ${error.message}`);
@@ -388,7 +421,7 @@ result.recipient_count   // Will be undefined
 ## 🔧 Requirements
 
 - Node.js 16+ or higher
-- NestJS 10+ 
+- NestJS 10+
 - TypeScript 4.5+
 
 ## 📚 API Documentation
@@ -413,5 +446,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Documentation](https://docs.metigan.com)
 - [API Reference](https://docs.metigan.com/api)
 - [GitHub Repository](https://github.com/metigan/nestjs)
-#   n e s t j s  
- 
