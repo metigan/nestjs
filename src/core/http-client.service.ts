@@ -3,7 +3,7 @@ import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { ApiError } from '../errors';
 import { MetiganModuleOptions } from '../interfaces/metigan-module-options.interface';
 
-const BASE_URL = 'https://api.metigan.com';
+const BASE_URL = 'https://api.metigan.io';
 
 @Injectable()
 export class HttpClientService {

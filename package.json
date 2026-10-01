@@ -1,6 +1,6 @@
 {
   "name": "@metigan/nestjs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Official Metigan SDK for NestJS - Email, Forms, Contacts, and Audiences management",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -20,7 +20,7 @@
     "audiences",
     "sdk"
   ],
-  "author": "Metigan <support@metigan.com>",
+  "author": "Metigan <support@metigan.io>",
   "license": "MIT",
   "peerDependencies": {
     "@nestjs/common": "^10.0.0",
@@ -45,7 +45,7 @@
   "bugs": {
     "url": "https://github.com/metigan/nestjs/issues"
   },
-  "homepage": "https://metigan.com",
+  "homepage": "https://metigan.io",
   "publishConfig": {
     "access": "public"
   }
